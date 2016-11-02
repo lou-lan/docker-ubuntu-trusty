@@ -1,8 +1,14 @@
 FROM index.tenxcloud.com/tenxcloud/ubuntu:trusty
 MAINTAINER Zhai Huailou <loualn@loulan.me>
 
+# 使用root用户
+USER root
+
+# 使用Ubuntu官方的apt-get源
+RUN  echo "deb http://archive.ubuntu.com/ubuntu trusty main universe\n" > /etc/apt/sources.list \
+  && echo "deb http://archive.ubuntu.com/ubuntu trusty-updates main universe\n" >> /etc/apt/sources.list
+
 #配置中文语言
-ENV TZ "Asia/Shanghai"
 ENV LANGUAGE zh_CN.UTF-8
 ENV LANG zh_CN.UTF-8
 ENV LC_ALL=zh_CN.UTF-8
@@ -10,10 +16,15 @@ RUN /usr/share/locales/install-language-pack zh_CN \
   && locale-gen zh_CN.UTF-8 \
   && dpkg-reconfigure --frontend noninteractive locales \
   && apt-get -qqy --no-install-recommends install language-pack-zh-hans
+  
+# 设置时区
+ENV TZ "PRC"
+RUN echo "Asia/Shanghai" | tee /etc/timezone \
+  && dpkg-reconfigure --frontend noninteractive tzdata
 
 COPY sources.list /etc/apt/sources.list
 
-# Install.
+# 更新
 VOLUME /data
 RUN apt-get update && \
     apt-get -y upgrade
