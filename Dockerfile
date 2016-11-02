@@ -12,17 +12,10 @@ RUN  echo "deb http://archive.ubuntu.com/ubuntu trusty main universe\n" > /etc/a
 ENV LANGUAGE zh_CN.UTF-8
 ENV LANG zh_CN.UTF-8
 ENV LC_ALL=zh_CN.UTF-8
-RUN /usr/share/locales/install-language-pack zh_CN \
-  && locale-gen zh_CN.UTF-8 \
-  && dpkg-reconfigure --frontend noninteractive locales \
-  && apt-get -qqy --no-install-recommends install language-pack-zh-hans
   
 # 设置时区
 ENV TZ "PRC"
-RUN echo "Asia/Shanghai" | tee /etc/timezone \
-  && dpkg-reconfigure --frontend noninteractive tzdata
 
-COPY sources.list /etc/apt/sources.list
 
 # 更新
 VOLUME /data
