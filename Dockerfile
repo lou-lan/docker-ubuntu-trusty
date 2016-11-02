@@ -5,8 +5,7 @@ MAINTAINER Zhai Huailou <loualn@loulan.me>
 USER root
 
 # 使用Ubuntu官方的apt-get源
-RUN  echo "deb http://archive.ubuntu.com/ubuntu trusty main universe\n" > /etc/apt/sources.list \
-  && echo "deb http://archive.ubuntu.com/ubuntu trusty-updates main universe\n" >> /etc/apt/sources.list
+COPY sources.list /etc/apt/sources.list
 
 #配置中文语言
 ENV LANGUAGE zh_CN.UTF-8
@@ -15,7 +14,6 @@ ENV LC_ALL=zh_CN.UTF-8
   
 # 设置时区
 ENV TZ "PRC"
-
 
 # 更新
 VOLUME /data
