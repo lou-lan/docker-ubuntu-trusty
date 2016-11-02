@@ -1,4 +1,4 @@
-FROM daocloud.io/ubuntu:14.04
+FROM index.tenxcloud.com/tenxcloud/ubuntu:trusty
 MAINTAINER Zhai Huailou <loualn@loulan.me>
 
 #换阿里源
